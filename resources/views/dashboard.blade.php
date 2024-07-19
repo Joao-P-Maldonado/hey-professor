@@ -1,35 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+        <x-header>
             {{ __('Dashboard') }}
-        </h2>
+        </x-header>
     </x-slot>
 
-    <div class="py-12">
-        <form action="{{ route('question.store') }}" method="post">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                @csrf
-                <label for="question" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-                    message</label>
-                <textarea id="question" rows="4" name="question"
-                    class="block p-2.5 w-full text-sm text-gray-900
-                    bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500
-                    focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Leave a comment...">
-                    {{ old('question') }}
-                </textarea>
-                @error('question')
-                    <span class="text-red-500">{{ $message }}</span>
-                @enderror
+    <x-container>
+        <x-form post :action="route('question.store')">
+            @csrf
+            <x-textarea label="Question" name="question" id="question" />
 
-                <button type="submit"
-                    class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                    Save
-                </button>
-                <button type="reset"
-                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Alternative</button>
-            </div>
-        </form>
-    </div>
+            @error('question')
+                <span class="text-red-500">{{ $message }}</span>
+            @enderror
+
+            <x-btn.primary type="submit">Save</x-btn.primary>
+            <x-btn.reset type="reset">Cancel</x-btn.reset>
+        </x-form>
+    </x-container>
 </x-app-layout>
